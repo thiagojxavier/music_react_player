@@ -8,8 +8,8 @@ interface MusicSelectedProps {
     src: string,
 }
 
-export function MusicSelected({cover, duration, name, src}:MusicSelectedProps) {
-    // Trabalhar a lógica da música sendo tocada
+export function MusicSelected({cover, duration, name}:MusicSelectedProps) {
+
 
     return (
         <div className="w-full h-full relative">

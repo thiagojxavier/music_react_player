@@ -18,12 +18,44 @@ const storedResult = await RequestAPI();
 
 const cloneResult:Item[] = [...storedResult];
 
-console.log(cloneResult)
+const audio = new Audio();
 
 export function App() {
-  // trabalhar agora com a lógica de adicionar a imagem baseado na imagem clicado
   const [musicClicked, setMusicClicked] = useState<Item | undefined>();
+  const [IsMusicPlaying, setIsMusicPlaying] = useState(false);
+  // Trabalhar com ao clicar no pause mude para o play e no play pro pause
 
+  musicClicked ? playMusic() : null;
+
+  function playMusic() {
+    if(!musicClicked) return
+
+    if(musicClicked.src){
+      if(!audio.paused) {
+        audio.pause();
+      }
+
+      audio.src = musicClicked.src;
+    }
+
+    if(!musicClicked.src) {
+      audio.src = musicClicked.src;
+    }     
+
+    const executeMusic = async(audio: HTMLAudioElement) => {
+      try {
+        await audio.play();
+      } catch(e) {
+        throw Error(`${e}`)
+      }
+    }
+
+    audio.addEventListener('canplaythrough', () => {
+      executeMusic(audio);
+    });
+    
+  }
+    
   return (
     <div className="bg-zinc-900 w-full min-h-screen flex flex-col">
       <Header/>
