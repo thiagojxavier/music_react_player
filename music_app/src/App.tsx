@@ -80,7 +80,6 @@ export function App() {
                 name={item.name} 
                 duration={item.duration} 
                 musicClickedFunc={setMusicClicked}
-                data={cloneResult}
                 />)}
             </ul>
 

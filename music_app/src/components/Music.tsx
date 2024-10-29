@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 import { Item } from "../App"
+import { findMusicData } from "../functions/FindMusicData"
 
 interface MusicProps {
     id: string
@@ -7,12 +8,11 @@ interface MusicProps {
     name: string,
     duration: string
     musicClickedFunc: Dispatch<SetStateAction<Item | undefined>>
-    data: Item[]
 }
 
-export function Music({id, cover, name, duration, musicClickedFunc, data}:MusicProps)  {
+export function Music({id, cover, name, duration, musicClickedFunc}:MusicProps)  {
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-        const dataMusicSelected = data.find((musicData) => musicData.id === event.currentTarget.id)
+        const dataMusicSelected = findMusicData(event.currentTarget.id)
 
         musicClickedFunc(dataMusicSelected);
     }
