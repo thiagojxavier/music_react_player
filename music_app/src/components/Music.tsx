@@ -1,20 +1,60 @@
-import { Dispatch, SetStateAction } from "react"
-import { Item } from "../App"
-import { findMusicData } from "../functions/FindMusicData"
+import { findMusicData } from "../functions/findMusicData"
+import { pauseMusic } from "../functions/pauseMusic"
+import { playMusic } from "../functions/playMusic"
 
 interface MusicProps {
     id: string
     cover: string,
     name: string,
-    duration: string
-    musicClickedFunc: Dispatch<SetStateAction<Item | undefined>>
+    duration: string,
+    audio: HTMLAudioElement,
+    setIsMusicPlaying: React.Dispatch<React.SetStateAction<boolean>>,
+    isMusicPlaying: boolean,
+    setErrorAudio: React.Dispatch<React.SetStateAction<boolean>>,
+    errorAudio: boolean
 }
 
-export function Music({id, cover, name, duration, musicClickedFunc}:MusicProps)  {
+export function Music({id, cover, name, duration, audio, setIsMusicPlaying, isMusicPlaying, setErrorAudio, errorAudio}:MusicProps)  {
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-        const dataMusicSelected = findMusicData(event.currentTarget.id)
+        let dataMusicSelected = findMusicData(event.currentTarget.id);
 
-        musicClickedFunc(dataMusicSelected);
+        if(isMusicPlaying) {
+            setIsMusicPlaying(false);
+        }
+
+        if(!dataMusicSelected) return
+
+        if(dataMusicSelected.id === audio.id) return
+
+        if(audio.id) {
+            pauseMusic(audio);
+        }
+
+        audio.src = dataMusicSelected.src;
+        audio.title = dataMusicSelected.name;
+        audio.id = dataMusicSelected.id;
+
+        playMusic({audio, setIsMusicPlaying, setErrorAudio, errorAudio});
+
+        audio.addEventListener('ended', () => {
+            if(!dataMusicSelected) return
+            if(dataMusicSelected.id === '10') return
+
+            const idPreviousMusic = Number(dataMusicSelected.id) + 1;
+            const previousMusic = findMusicData(String(idPreviousMusic));
+
+            dataMusicSelected = previousMusic
+
+            setIsMusicPlaying(false);
+
+            if(!previousMusic) return
+
+            audio.src = previousMusic.src;
+            audio.title = previousMusic.name;
+            audio.id = previousMusic.id;
+
+            playMusic({audio, setIsMusicPlaying, setErrorAudio, errorAudio});
+        })
     }
 
     return (

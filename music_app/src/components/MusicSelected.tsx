@@ -1,15 +1,21 @@
 import { CirclePause, CirclePlay, FastForward, Rewind } from "lucide-react";
+import { pauseMusic } from "../functions/pauseMusic";
 
 
 interface MusicSelectedProps {
     cover: string,
     duration: string,
     name: string,
-    src: string,
+    MusicPlaying: boolean,
+    audio: HTMLAudioElement,
+    setIsMusicPlaying: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export function MusicSelected({cover, duration, name}:MusicSelectedProps) {
-
+export function MusicSelected({cover, duration, name, MusicPlaying, audio, setIsMusicPlaying}:MusicSelectedProps) {
+    function handleButtonPause() {
+        pauseMusic(audio);
+        setIsMusicPlaying(false);
+    }
 
     return (
         <div className="w-full h-full relative">
@@ -26,8 +32,13 @@ export function MusicSelected({cover, duration, name}:MusicSelectedProps) {
                 </div>
                 <div className="flex justify-center gap-4">
                     <Rewind size={50} className="cursor-pointer text-zinc-200 hover:text-zinc-950 transition-colors duration-300"/>
-                    <CirclePlay size={50} className="cursor-pointer text-zinc-200 hover:text-zinc-950 transition-colors duration-300"/>
-                    <CirclePause size={50} className="cursor-pointer text-zinc-200 hover:text-zinc-950 transition-colors duration-300"/>
+                    { MusicPlaying 
+                        ? 
+                            <CirclePause size={50} className="cursor-pointer text-zinc-200 hover:text-zinc-950 transition-colors duration-300" onClick={handleButtonPause}/>
+                        : 
+                            <CirclePlay size={50} className="cursor-pointer text-zinc-200 hover:text-zinc-950 transition-colors duration-300"/>
+                    }
+                    
                     <FastForward size={50} className="cursor-pointer text-zinc-200 hover:text-zinc-950 transition-colors duration-300"/>
                 </div>
                 <div>
