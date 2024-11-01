@@ -3,7 +3,6 @@ import { pauseMusic } from "../functions/pauseMusic";
 import { playMusic } from "../functions/playMusic";
 import { findMusicData } from "../functions/findMusicData";
 
-
 interface MusicSelectedProps {
     cover: string,
     duration: string,
@@ -13,10 +12,11 @@ interface MusicSelectedProps {
     setIsMusicPlaying: React.Dispatch<React.SetStateAction<boolean>>,
     setErrorAudio: React.Dispatch<React.SetStateAction<boolean>>,
     errorAudio: boolean,
-    timeMusic: string
+    timeMusic: string,
+    percentage: string
 }
 
-export function MusicSelected({cover, duration, name, MusicPlaying, audio, setIsMusicPlaying, setErrorAudio, errorAudio, timeMusic}:MusicSelectedProps) {
+export function MusicSelected({cover, duration, name, MusicPlaying, audio, setIsMusicPlaying, setErrorAudio, errorAudio, timeMusic, percentage}:MusicSelectedProps) {
     function handleButtonPause() {
         pauseMusic(audio);
         setIsMusicPlaying(false);
@@ -69,14 +69,14 @@ export function MusicSelected({cover, duration, name, MusicPlaying, audio, setIs
                 <p className="absolute top-0 p-4 font-extrabold text-slate-100 text-shadow-md shadow-slate-300 text-2xl">{name}</p>
             </div>
             <img className="w-full h-full object-cover" src={cover} alt={name} />
-            <div className="absolute bottom-0 p-8 bg-gray-700 w-full flex items-center justify-around">
-                <div className="absolute w-full bg-slate-100 h-3 top-0">
-                    <div className="w-[20%] h-full bg-blue-700"></div>
+            <div className="absolute bottom-0 p-8 sm:px-0 sm:pb-2 sm:pt-4 bg-gray-700 w-full flex items-center justify-around">
+                <div className="absolute w-full bg-slate-100 h-3 sm:h-2 top-0">
+                    <div style={{width: `${percentage}%`}} className="h-full bg-blue-700"></div>
                 </div>
                 <div>
                     <p className="font-bold text-zinc-300">{timeMusic}</p>
                 </div>
-                <div className="flex justify-center gap-4">
+                <div className="flex justify-center gap-4 sm:gap-1">
                     <Rewind size={50} className="cursor-pointer text-zinc-200 hover:text-zinc-950 transition-colors duration-300" onClick={handleButtonRewind}/>
                     { MusicPlaying 
                         ? 
