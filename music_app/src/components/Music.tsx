@@ -40,18 +40,18 @@ export function Music({id, cover, name, duration, audio, setIsMusicPlaying, isMu
             if(!dataMusicSelected) return
             if(dataMusicSelected.id === '10') return
 
-            const idPreviousMusic = Number(dataMusicSelected.id) + 1;
-            const previousMusic = findMusicData(String(idPreviousMusic));
+            const idNextMusic = Number(dataMusicSelected.id) + 1;
+            const nextMusic = findMusicData(String(idNextMusic));
 
-            dataMusicSelected = previousMusic
+            dataMusicSelected = nextMusic
 
             setIsMusicPlaying(false);
 
-            if(!previousMusic) return
+            if(!nextMusic) return
 
-            audio.src = previousMusic.src;
-            audio.title = previousMusic.name;
-            audio.id = previousMusic.id;
+            audio.src = nextMusic.src;
+            audio.title = nextMusic.name;
+            audio.id = nextMusic.id;
 
             playMusic({audio, setIsMusicPlaying, setErrorAudio, errorAudio});
         })

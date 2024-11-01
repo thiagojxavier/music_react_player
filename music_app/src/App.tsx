@@ -25,8 +25,36 @@ const audio = new Audio();
 export function App() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [errorAudio, setErrorAudio] = useState(false);
+  const [timeMusic, setTimeMusic] = useState('');
 
-  const musicClicked = findMusicData(audio.id) ? findMusicData(audio.id) : null
+  const musicClicked = findMusicData(audio.id) ? findMusicData(audio.id) : null;
+
+  function countingTime() {
+    const getSeconds = Number(audio.currentTime.toFixed(0));
+    let minutes = 0;
+    let seconds = 0;
+
+
+
+    if(getSeconds > 59) {
+      const getMinutes = Math.floor(getSeconds / 60);
+
+      minutes = Number(getMinutes.toFixed(0))
+      seconds = getSeconds - (60 * minutes)
+      setTimeMusic(`${minutes > 9 ? minutes : `0${minutes}`}:${seconds > 9 ? seconds : `0${seconds}`}`);
+      console.log(getSeconds, minutes, seconds)
+      setTimeout(countingTime, 1000);
+      return
+    }
+    
+    setTimeMusic(`00:${getSeconds > 9 ? getSeconds : `0${getSeconds}`}`);
+    setTimeout(countingTime, 1000);
+    
+  }
+
+  setTimeout(() => {
+    audio.id && countingTime()
+  }, 10)
     
   return (
     <div className="bg-zinc-900 w-full min-h-screen flex flex-col">
@@ -72,7 +100,11 @@ export function App() {
                     name={musicClicked.name}
                     setIsMusicPlaying={setIsMusicPlaying}
                     MusicPlaying={isMusicPlaying}
-                    audio={audio}/>
+                    audio={audio}
+                    setErrorAudio={setErrorAudio}
+                    errorAudio={errorAudio}
+                    timeMusic={timeMusic}
+                    />
                 : 
                   <NoMusic error={errorAudio}/>
               }
