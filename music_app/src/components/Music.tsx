@@ -1,4 +1,4 @@
-import { findMusicData } from "../functions/FindMusicData"
+import { FindMusicData } from "../functions/FindMusicData"
 import { pauseMusic } from "../functions/pauseMusic"
 import { playMusic } from "../functions/playMusic"
 
@@ -16,7 +16,7 @@ interface MusicProps {
 
 export function Music({id, cover, name, duration, audio, setIsMusicPlaying, isMusicPlaying, setErrorAudio, errorAudio}:MusicProps)  {
     function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-        let dataMusicSelected = findMusicData(event.currentTarget.id);
+        let dataMusicSelected = FindMusicData(event.currentTarget.id);
 
         if(isMusicPlaying) {
             setIsMusicPlaying(false);
@@ -41,7 +41,7 @@ export function Music({id, cover, name, duration, audio, setIsMusicPlaying, isMu
             if(dataMusicSelected.id === '10') return
 
             const idNextMusic = Number(dataMusicSelected.id) + 1;
-            const nextMusic = findMusicData(String(idNextMusic));
+            const nextMusic = FindMusicData(String(idNextMusic));
 
             dataMusicSelected = nextMusic
 
