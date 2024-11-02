@@ -62,9 +62,9 @@ export function App() {
     <div className="bg-zinc-900 w-full min-h-screen flex flex-col">
       <Header/>
       
-      <main className='flex sm:flex-col-reverse flex-1 overflow-y-hidden p-4 gap-3 justify-center'>
+      <main className='flex flex-col-reverse md:flex-row md:justify-center flex-1 overflow-y-hidden p-4 gap-3 md:w-3/4 md:mx-auto'>
 
-        <div id='playlist' className='w-72 sm:mx-auto bg-gray-700 rounded-xl p-4 flex flex-col gap-3'>
+        <div id='playlist' className='w-72 mx-auto sm:w-96 md:w-72 sm:mx-auto bg-gray-700 rounded-xl p-4 flex flex-col gap-3'>
 
           <div id='playlist__title' className='text-slate-100 font-semibold text-lg'>
 
@@ -93,7 +93,7 @@ export function App() {
 
         </div>
 
-        <div id='music-area' className='w-2/3 sm:w-72 sm:mx-auto bg-gray-700 rounded-xl max-w-4xl overflow-hidden p-2'>
+        <div id='music-area' className='w-72 sm:w-96 mx-auto md:w-2/3 md:h-auto bg-gray-700 rounded-xl max-w-4xl overflow-hidden p-2'>
               {musicClicked 
                 ? 
                   <MusicSelected 
