@@ -4,7 +4,7 @@ import { Music } from './components/Music'
 import { NoMusic } from './components/NoMusic'
 import { MusicSelected } from './components/MusicSelected'
 import { useState } from 'react'
-import { findMusicData } from './functions/findMusicData'
+import { FindMusicData } from './functions/FindMusicData'
 
 
 export interface Item {
@@ -98,7 +98,7 @@ export function App() {
   const [timeMusic, setTimeMusic] = useState('');
   const [percentage, setPercentage] = useState('');
 
-  const musicClicked = findMusicData(audio.id) ? findMusicData(audio.id) : null;
+  const musicClicked = FindMusicData(audio.id) ? FindMusicData(audio.id) : null;
 
   function countingTime() {
     const getDuration = Number(audio.duration.toFixed(0));

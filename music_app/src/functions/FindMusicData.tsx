@@ -75,7 +75,7 @@ const storedResult = [
 
 const cloneResult:Item[] = [...storedResult];
 
-export function findMusicData(id: string) {
+export function FindMusicData(id: string) {
     const dataMusicSelected = cloneResult.find((musicData) => musicData.id === id)
 
     return dataMusicSelected

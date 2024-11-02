@@ -1,7 +1,7 @@
 import { CirclePause, CirclePlay, FastForward, Rewind } from "lucide-react";
 import { pauseMusic } from "../functions/pauseMusic";
 import { playMusic } from "../functions/playMusic";
-import { findMusicData } from "../functions/findMusicData";
+import { FindMusicData } from "../functions/FindMusicData";
 
 interface MusicSelectedProps {
     cover: string,
@@ -30,7 +30,7 @@ export function MusicSelected({cover, duration, name, MusicPlaying, audio, setIs
 
     function handleButtonForward() {
         const currentMusic = Number(audio.id) + 1 > 10 ? 1 : Number(audio.id) + 1;
-        const nextMusic = findMusicData(String(currentMusic));
+        const nextMusic = FindMusicData(String(currentMusic));
 
         setIsMusicPlaying(false);
 
@@ -50,7 +50,7 @@ export function MusicSelected({cover, duration, name, MusicPlaying, audio, setIs
         }
 
         const currentMusic = Number(audio.id) - 1 < 1 ? 1 : Number(audio.id) - 1;
-        const previousMusic = findMusicData(String(currentMusic));
+        const previousMusic = FindMusicData(String(currentMusic));
 
         setIsMusicPlaying(false);
 

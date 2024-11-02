@@ -1,4 +1,4 @@
-import { findMusicData } from "../functions/findMusicData"
+import { findMusicData } from "../functions/FindMusicData"
 import { pauseMusic } from "../functions/pauseMusic"
 import { playMusic } from "../functions/playMusic"
 
