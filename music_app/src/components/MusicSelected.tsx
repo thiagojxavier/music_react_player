@@ -44,12 +44,14 @@ export function MusicSelected({cover, duration, name, MusicPlaying, audio, setIs
     }
 
     function handleButtonRewind() {
+        const currentMusic = Number(audio.id) - 1 < 1 ? 1 : Number(audio.id) - 1;
+
         if (audio.currentTime > 5) {
             audio.currentTime = 0
+            playMusic({audio, setIsMusicPlaying, setErrorAudio, errorAudio});
             return
         }
-
-        const currentMusic = Number(audio.id) - 1 < 1 ? 1 : Number(audio.id) - 1;
+        
         const previousMusic = FindMusicData(String(currentMusic));
 
         setIsMusicPlaying(false);
